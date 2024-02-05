@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<articles>
+    <article>
+        <title>Understanding &amp;amp; Using XML</title>
+        <summary>This &quot;article&quot; provides a &lt;basic&gt; overview of XML &amp; its uses.</summary>
+    </article>
+    <article>
+        <title>Special Characters in XML</title>
+        <summary>The use of special characters like &amp;amp;, &amp;lt;, &amp;gt;, &apos;, and &quot; in XML.</summary>
+    </article>
+</articles>

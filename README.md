@@ -24,7 +24,7 @@ Before you run the script, make sure you have Node.js installed on your system. 
 2. **Run the Script:**
     - Open a Command Prompt, Terminal, or PowerShell window.
     - Navigate to the directory where your script is located.
-    - Run the script by executing the command `node xmlEscapeScript.js`.
+    - Run the script by executing the command `node xmlEscaper.js`.
 
 3. **Check the Output:**
     - After successful execution, check the `output` folder for the `output.xml` file.
