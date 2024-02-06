@@ -2,7 +2,7 @@
 <articles>
     <article>
         <title>Understanding &amp; Using XML</title>
-        <summary>This "article" provides a <basic> overview of XML & its uses.</summary>
+        <summary>This "article" provides a overview of XML &lt; its uses.</summary>
     </article>
     <article>
         <title>Special Characters in XML</title>

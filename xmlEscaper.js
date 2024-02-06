@@ -18,7 +18,10 @@ function encodeXMLCharactersInTitlesAndSummaries(xmlString) {
     };
 
     function escapeSpecialChars(str) {
-        return str.replace(/[&<>"']/g, (char) => {
+        // Updated pattern to avoid matching already escaped entities
+        const pattern = /&(?!amp;|lt;|gt;|quot;|apos;)|[<>"']/g;
+
+        return str.replace(pattern, (char) => {
             changeCount[char]++;
             return escapeMap[char];
         });
