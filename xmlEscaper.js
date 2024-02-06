@@ -42,30 +42,45 @@ function encodeXMLCharactersInTitlesAndSummaries(xmlString) {
     return {encodedXMLString: xmlString, summary: summary.join(", ")};
 }
 
-const inputPath = path.join(__dirname, 'input', 'input.xml');
-const outputPath = path.join(__dirname, 'output', 'output.xml');
+const inputDirPath = path.join(__dirname, 'input');
+const outputDirPath = path.join(__dirname, 'output');
 
-fs.readFile(inputPath, 'utf8', (err, data) => {
+// Ensure the output directory exists
+fs.mkdir(outputDirPath, { recursive: true }, (err) => {
     if (err) {
-        console.error("Error reading file:", err);
+        console.error("Error creating output directory:", err);
         return;
     }
-    let result = encodeXMLCharactersInTitlesAndSummaries(data);
 
-    // Ensure the output directory exists
-    fs.mkdir(path.dirname(outputPath), { recursive: true }, (err) => {
+    // Read the input directory for XML files
+    fs.readdir(inputDirPath, (err, files) => {
         if (err) {
-            console.error("Error creating output directory:", err);
+            console.error("Error reading input directory:", err);
             return;
         }
 
-        // Write the modified XML to a new file
-        fs.writeFile(outputPath, result.encodedXMLString, (err) => {
-            if (err) {
-                console.error("Error writing file:", err);
-                return;
+        files.forEach(file => {
+            if (path.extname(file).toLowerCase() === '.xml') {
+                const inputFilePath = path.join(inputDirPath, file);
+                const outputFileName = path.basename(file, path.extname(file)) + "_output" + path.extname(file);
+                const outputFilePath = path.join(outputDirPath, outputFileName);
+
+                fs.readFile(inputFilePath, 'utf8', (err, data) => {
+                    if (err) {
+                        console.error(`Error reading file: ${file}`, err);
+                        return;
+                    }
+                    let result = encodeXMLCharactersInTitlesAndSummaries(data);
+
+                    fs.writeFile(outputFilePath, result.encodedXMLString, (err) => {
+                        if (err) {
+                            console.error(`Error writing file: ${outputFileName}`, err);
+                            return;
+                        }
+                        console.log(`File "${file}" has been processed and saved as "${outputFileName}". Changes made:`, result.summary);
+                    });
+                });
             }
-            console.log('File has been saved. Changes made:', result.summary);
         });
     });
 });
